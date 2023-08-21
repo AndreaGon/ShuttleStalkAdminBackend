@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 var admin = require("firebase-admin");
 
-var serviceAccount = require("./serviceAccountKey.json");
+var serviceAccount = require("/env/serviceAccountKey.json");
 
 const hostname = '127.0.0.1';
 const port = 3000;
