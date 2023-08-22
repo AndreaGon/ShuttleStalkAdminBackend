@@ -24,7 +24,7 @@ class AnnouncementService {
         .then((response) => {
             // Response is a message ID string.
             console.log('Successfully sent message', message);
-            console.log('Content: ', req.body);
+            console.log('Content: ', response.body);
         })
         .catch((error) => {
             console.log('Error sending message:', error);
