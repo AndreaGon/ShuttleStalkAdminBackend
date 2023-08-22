@@ -6,6 +6,7 @@ const driverCollection = db.collection("drivers");
 class DriverService {
     constructor(){
         this.drivers = [];
+        this.driver = [];
     }
 
     getAllDrivers = async () => {
@@ -23,6 +24,24 @@ class DriverService {
         });
 
         return this.drivers;
+
+    }
+
+    getDriverByEmail = async (email) => {
+        this.driver = [];
+        await driverCollection.where("email", "==", email).get()
+        .then(querySnapshot => {            
+            querySnapshot.forEach(docSnapshot => {
+                const documentData = docSnapshot.data();
+                this.driver.push(documentData);
+
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching documents:', error);
+        });
+
+        return this.driver;
 
     }
 
@@ -57,6 +76,23 @@ class DriverService {
         .catch((err)=>{
             console.log("Error: ", err);
         });
+    }
+
+    deleteDriver = async (driverId, driverEmail) => {
+        admin.auth().getUserByEmail(driverEmail)
+        .then((userRecord) => {
+            admin.auth().deleteUser(userRecord.uid);
+        });
+
+        await driverCollection.doc(driverId).delete()
+        .then(data => {            
+            console.log("Successfully deleted: ", data);
+        })
+        .catch(error => {
+            console.error('Error fetching documents:', error);
+        });
+
+
     }
 }
 

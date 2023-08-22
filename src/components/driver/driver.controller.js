@@ -15,9 +15,23 @@ class DriverController {
         
     }
 
+    getDriverByEmail = (req, res) => {
+        const { email } = req.params;
+        this.driverService.getDriverByEmail(email).then((value)=>{
+            return res.status(200).json(value); 
+        });
+        
+    }
+
     registerDriverAccount = (req, res) => {
         const driver = new Driver(req.body.fullname, req.body.icNumber, req.body.email, req.body.password);
         return res.status(201).send(this.driverService.registerDriverAccount(driver));
+    }
+
+    deleteDriver = (req, res) => {
+        const { id, email } = req.params;
+        console.log("HELLO")
+        return res.status(200).send(this.driverService.deleteDriver(id, email));
     }
 
 }
