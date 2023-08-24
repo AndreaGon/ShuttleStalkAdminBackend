@@ -13,6 +13,19 @@ class ShuttleController {
         
     }
 
+    getShuttleById = (req, res) => {
+        const { id } = req.params;
+        this.shuttleService.getShuttleById(id).then((value)=>{
+            return res.status(200).json(value); 
+        });
+        
+    }
+
+    deleteShuttle = (req, res) => {
+        const { id } = req.params;
+        return res.status(200).send(this.shuttleService.deleteShuttle(id));
+    }
+
 }
 
 export default ShuttleController;
