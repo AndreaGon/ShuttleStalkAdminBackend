@@ -1,4 +1,5 @@
 import admin from '../../config/admin.config.js';
+import { v4 as uuidv4 } from 'uuid';
 
 const db = admin.firestore(); 
 const announcementCollection = db.collection("announcements");
@@ -47,20 +48,13 @@ class AnnouncementService {
     }
 
     createAnnouncement = async (announcement) => {
+        let id = uuidv4();
         //Register driver details in Firestore
-        let docRef = await announcementCollection.add({
+        await announcementCollection.doc(id).set({
+            id: id,
             title: announcement.title,
             content: announcement.content,
             timestamp: announcement.timestamp
-        });
-
-        await announcementCollection.doc(docRef.id).update({
-            id: docRef.id
-        }).then((success)=>{
-            console.log(success);
-        })
-        .catch((err)=>{
-            console.log(err);
         });
     }
 
@@ -103,7 +97,7 @@ class AnnouncementService {
     }
     
     deleteAnnouncement = async (id) => {
-        await announcementCollection.doc(id).delete()
+        return await announcementCollection.doc(id).delete()
         .then(data => {            
             console.log("Successfully deleted: ", data);
         })

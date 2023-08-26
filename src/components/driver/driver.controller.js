@@ -25,7 +25,9 @@ class DriverController {
 
     registerDriverAccount = (req, res) => {
         const driver = new Driver(req.body.fullname, req.body.icNumber, req.body.email, req.body.password);
-        return res.status(201).send(this.driverService.registerDriverAccount(driver));
+        this.driverService.registerDriverAccount(driver).then((value)=>{
+            return res.status(201).send();
+        });
     }
 
     deleteDriver = (req, res) => {

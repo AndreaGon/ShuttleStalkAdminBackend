@@ -3,7 +3,8 @@ import serviceAccount from '../../env/serviceAccountKey.json' assert { type: "js
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://shuttle-stalk-default-rtdb.asia-southeast1.firebasedatabase.app"
+    databaseURL: "https://shuttle-stalk-default-rtdb.asia-southeast1.firebasedatabase.app",
+    storageBucket: "gs://shuttle-stalk.appspot.com"
 });
 
 export default admin;
