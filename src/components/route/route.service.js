@@ -3,22 +3,22 @@ import { v4 as uuidv4 } from 'uuid';
 
 const db = admin.firestore(); 
 const bucket = admin.storage().bucket();
-const shuttleCollection = db.collection("shuttles");
+const routeCollection = db.collection("routes");
 
-class ShuttleService {
+class RouteService {
     constructor(){
-        this.shuttles = [];
-        this.shuttle;
+        this.routes = [];
+        this.route;
         this.downloadUrl;
     }
 
-    getAllShuttles = async () =>{
-        this.shuttles = [];
-        await shuttleCollection.get()
+    getAllRoutes = async () =>{
+        this.routes = [];
+        await routeCollection.get()
         .then(querySnapshot => {            
             querySnapshot.forEach(docSnapshot => {
                 const documentData = docSnapshot.data();
-                this.shuttles.push(documentData);
+                this.routes.push(documentData);
 
             });
         })
@@ -26,17 +26,17 @@ class ShuttleService {
             console.error('Error fetching documents:', error);
         });
 
-        return this.shuttles;
+        return this.routes;
 
     }
 
-    getShuttleById = async (id) => {
-        this.shuttles = [];
-        await shuttleCollection.where("id", "==", id).get()
+    getRouteById = async (id) => {
+        this.routes = [];
+        await routeCollection.where("id", "==", id).get()
         .then(querySnapshot => {            
             querySnapshot.forEach(docSnapshot => {
                 const documentData = docSnapshot.data();
-                this.shuttle = documentData;
+                this.route = documentData;
 
             });
         })
@@ -44,26 +44,34 @@ class ShuttleService {
             console.error('Error fetching documents:', error);
         });
 
-        return this.shuttle;
+        return this.route;
     }
 
-    addShuttle = async (shuttle) => {
+    addRoute = async (route) => {
         let id = uuidv4();
 
         //Register driver details in Firestore
-        return await shuttleCollection.doc(id).set({
+        return await routeCollection.doc(id).set({
             id: id,
-            plateNo: shuttle.plateNo,
-            shuttleImage: shuttle.shuttleImage,
-            seats: shuttle.seats
+            routeName: route.routeName,
+            driverId: route.driverId,
+            shuttleId: route.shuttleId,
+            pickupTime: route.pickupTime,
+            dropoffTime: route.dropoffTime,
+            route: route.route,
+            routeImage: route.routeImage
         });
     }
 
-    updateShuttle = async (id, shuttleContent) => {
-        await shuttleCollection.doc(id).update({
-            plateNo: shuttleContent.plateNo,
-            shuttleImage: shuttleContent.shuttleImage,
-            seats: shuttleContent.seats,
+    updateRoute = async (id, routeContent) => {
+        await routeCollection.doc(id).update({
+            routeName: routeContent.routeName,
+            driverId: routeContent.driverId,
+            shuttleId: routeContent.shuttleId,
+            pickupTime: routeContent.pickupTime,
+            dropoffTime: routeContent.dropoffTime,
+            route: routeContent.route,
+            routeImage: routeContent.routeImage
         }).then((success)=>{
             console.log(success);
         })
@@ -72,8 +80,8 @@ class ShuttleService {
         });
     }
 
-    uploadShuttleImage = async (fileBuffer, fileName, fileExtension) => {
-        const storageFilePath = `ShuttleImages/${fileName}${fileExtension}`;
+    uploadRouteImage = async (fileBuffer, fileName, fileExtension) => {
+        const storageFilePath = `RouteImages/${fileName}${fileExtension}`;
         const file = bucket.file(storageFilePath);
 
         await file.save(fileBuffer);
@@ -82,7 +90,7 @@ class ShuttleService {
     }
 
     getImageDownloadUrl = async (fileName) => {
-        const filePath = `ShuttleImages/${fileName}`;
+        const filePath = `RouteImages/${fileName}`;
         const file = bucket.file(filePath);
         const url = await file.makePublic({});
 
@@ -90,8 +98,8 @@ class ShuttleService {
 
     }
 
-    deleteShuttle = async (id) => {
-        return await shuttleCollection.doc(id).delete()
+    deleteRoute = async (id) => {
+        return await routeCollection.doc(id).delete()
         .then(data => {            
             console.log("Successfully deleted: ", data);
         })
@@ -102,4 +110,4 @@ class ShuttleService {
 
 }
 
-export default ShuttleService;
+export default RouteService;

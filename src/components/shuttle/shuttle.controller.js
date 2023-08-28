@@ -23,12 +23,7 @@ class ShuttleController {
 
     addShuttle = (req, res) => {
         const shuttle = new Shuttle(
-            req.body.routeName, 
-            req.body.driverId,
-            req.body.dropoffTime,
-            req.body.pickupTime,
             req.body.plateNo,
-            req.body.route,
             req.body.seats,
             req.body.shuttleImage
         );
@@ -37,12 +32,7 @@ class ShuttleController {
 
     updateShuttle = (req, res) => {
         const shuttle = new Shuttle(
-            req.body.routeName, 
-            req.body.driverId,
-            req.body.dropoffTime,
-            req.body.pickupTime,
             req.body.plateNo,
-            req.body.route,
             req.body.seats,
             req.body.shuttleImage
         );
