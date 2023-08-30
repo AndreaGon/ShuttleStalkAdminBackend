@@ -64,6 +64,7 @@ class RouteService {
     }
 
     updateRoute = async (id, routeContent) => {
+        console.log(routeContent);
         await routeCollection.doc(id).update({
             routeName: routeContent.routeName,
             driverId: routeContent.driverId,

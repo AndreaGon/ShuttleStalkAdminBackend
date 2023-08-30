@@ -40,11 +40,11 @@ class RouteController {
             req.body.driverId,
             req.body.dropoffTime,
             req.body.pickupTime,
-            req.body.plateNo,
+            req.body.shuttleId,
             req.body.route,
-            req.body.seats,
-            req.body.shuttleImage
+            req.body.routeImage
         );
+        console.log(route);
         const { id } = req.params;
         return res.status(201).send(this.routeService.updateRoute(id, route)); 
     }
