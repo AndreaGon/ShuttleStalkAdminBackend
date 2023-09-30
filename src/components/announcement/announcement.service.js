@@ -54,7 +54,8 @@ class AnnouncementService {
             id: id,
             title: announcement.title,
             content: announcement.content,
-            timestamp: announcement.timestamp
+            timestamp: announcement.timestamp,
+            createdBy: announcement.createdBy
         });
     }
 

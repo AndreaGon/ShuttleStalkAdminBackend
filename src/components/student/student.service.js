@@ -46,8 +46,7 @@ class StudentService {
 
     updateStudent = async (id, studentContent) => {
         await studentCollection.doc(id).update({
-            is_banned: studentContent.is_banned,
-            num_of_no_show: studentContent.num_of_no_show
+            no_show: studentContent.no_show
         }).then((success)=>{
             console.log(success);
         })

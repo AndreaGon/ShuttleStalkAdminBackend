@@ -22,8 +22,7 @@ class StudentController {
 
     updateStudent = (req, res) => {
         const student = new Student(
-            req.body.is_banned,
-            req.body.num_of_no_show
+            req.body.no_show
         );
         const { id } = req.params;
         return res.status(201).send(this.studentService.updateStudent(id, student));

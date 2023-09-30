@@ -32,7 +32,6 @@ class DriverController {
 
     deleteDriver = (req, res) => {
         const { id, email } = req.params;
-        console.log("HELLO")
         return res.status(200).send(this.driverService.deleteDriver(id, email));
     }
 

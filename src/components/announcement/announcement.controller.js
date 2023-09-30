@@ -24,7 +24,7 @@ class AnnouncementController {
     }
 
     createAnnouncement = (req, res) => {
-        const announcement = new Announcement(req.body.title, req.body.content, req.body.timestamp);
+        const announcement = new Announcement(req.body.title, req.body.content, req.body.timestamp, req.body.createdBy);
         return res.status(201).send(this.announcementService.createAnnouncement(announcement));
     }
 
