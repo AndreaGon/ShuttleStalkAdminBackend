@@ -1,5 +1,6 @@
 class Admin {
-    constructor(email, password, role){
+    constructor(fullname, email, password, role){
+        this.fullname = fullname;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -7,6 +8,7 @@ class Admin {
 
     toJSON() {
         return {
+            fullname: this.fullname,
             email: this.email,
             password: this.password,
             role: this.role
