@@ -1,8 +1,5 @@
 import Driver from './driver.entities.js'
 
-//Messaging
-const topic = 'announcements';
-
 class DriverController {
     constructor(driverService){
         this.driverService = driverService;
