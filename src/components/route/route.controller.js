@@ -21,6 +21,22 @@ class RouteController {
         
     }
 
+    getRouteByShuttleId = (req, res) => {
+        const { id } = req.params;
+        this.routeService.getRouteByShuttleId(id).then((value)=>{
+            return res.status(200).json(value); 
+        });
+        
+    }
+
+    getRouteByDriverId = (req, res) => {
+        const { id } = req.params;
+        this.routeService.getRouteByDriverId(id).then((value)=>{
+            return res.status(200).json(value); 
+        });
+        
+    }
+
     addRoute = (req, res) => {
         const route = new Route(
             req.body.routeName, 

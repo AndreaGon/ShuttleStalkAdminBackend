@@ -31,7 +31,7 @@ class RouteService {
     }
 
     getRouteById = async (id) => {
-        this.routes = [];
+        this.routes;
         await routeCollection.where("id", "==", id).get()
         .then(querySnapshot => {            
             querySnapshot.forEach(docSnapshot => {
@@ -45,6 +45,40 @@ class RouteService {
         });
 
         return this.route;
+    }
+
+    getRouteByShuttleId = async (id) => {
+        this.routes = [];
+        await routeCollection.where("shuttleId", "==", id).get()
+        .then(querySnapshot => {            
+            querySnapshot.forEach(docSnapshot => {
+                const documentData = docSnapshot.data();
+                this.routes.push(documentData);
+
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching documents:', error);
+        });
+
+        return this.routes;
+    }
+
+    getRouteByDriverId = async (id) => {
+        this.routes = [];
+        await routeCollection.where("driverId", "==", id).get()
+        .then(querySnapshot => {            
+            querySnapshot.forEach(docSnapshot => {
+                const documentData = docSnapshot.data();
+                this.routes.push(documentData);
+
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching documents:', error);
+        });
+
+        return this.routes;
     }
 
     addRoute = async (route) => {
